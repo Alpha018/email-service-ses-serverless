@@ -2,9 +2,10 @@ service:
   name: nest-serverless-lambda-demo
 
 plugins:
-  - 'serverless-plugin-typescript'
-  - serverless-plugin-optimize
+  - '@cruglobal/serverless-merge-config'
+  - serverless-webpack
   - serverless-offline
+  - serverless-pseudo-parameters
 
 provider:
   name: aws
@@ -18,3 +19,10 @@ functions:
       - http:
           method: any
           path: /{any+}
+
+custom:
+  webpack:
+    webpackConfig: webpack.config.js
+    includeModules: true
+    packager: 'npm'
+    excludeFiles: src/**/*.spec.ts

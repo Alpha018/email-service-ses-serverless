@@ -8,6 +8,7 @@ import { ExpressAdapter } from '@nestjs/platform-express';
 import { AppModule } from './app.module';
 import { WinstonModule } from 'nest-winston';
 import { loggerOptions } from './utils/logger';
+import { ValidationPipe } from '@nestjs/common';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const express = require('express');
@@ -30,6 +31,7 @@ async function bootstrapServer(): Promise<Server> {
         logger: WinstonModule.createLogger(loggerOptions),
       },
     );
+    nestApp.useGlobalPipes(new ValidationPipe({ transform: true }));
     nestApp.use(eventContext());
     await nestApp.init();
     cachedServer = createServer(expressApp, undefined, binaryMimeTypes);

@@ -11,6 +11,7 @@ import { AppController } from './app.controller';
 import { loggerOptions } from './utils/logger';
 import { HttpModule } from '@nestjs/axios';
 import { EmailConfigModule } from './config/email-config.module';
+import { EmailModule } from './email/email.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { EmailConfigModule } from './config/email-config.module';
     TerminusModule,
     WinstonModule.forRoot(loggerOptions),
     EmailConfigModule,
+    EmailModule,
   ],
   providers: [EmailServiceConfig],
   controllers: [AppController],

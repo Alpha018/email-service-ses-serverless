@@ -22,7 +22,18 @@ describe('EmailServiceConfig', () => {
     config = moduleRef.get(EmailServiceConfig);
   });
 
-  test('should return success apiBaseUrl', () => {
+  test('should return success node env', () => {
     expect(config.nodeConfig.nodeEnv).toBe(emailServiceEnvMock.NODE_ENV);
+  });
+
+  test('should return success config of aws', () => {
+    expect(config.awsConfig.region).toBe(emailServiceEnvMock.AWS_REGION);
+    expect(config.awsConfig.senders).toMatchObject(
+      JSON.parse(emailServiceEnvMock.AWS_EMAIL_SENDER_OBJECT),
+    );
+    expect(config.awsConfig.secretAccessKey).toBe(
+      emailServiceEnvMock.AWS_SECRET_ACCESS_KEY,
+    );
+    expect(config.awsConfig.accessKey).toBe(emailServiceEnvMock.AWS_ACCESS_KEY);
   });
 });
