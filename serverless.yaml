@@ -1,5 +1,5 @@
 service:
-  name: nest-serverless-lambda-demo
+  name: gac-email-service
 
 plugins:
   - '@cruglobal/serverless-merge-config'
