@@ -3,6 +3,14 @@ image:
 
 definitions:
   steps:
+    - download-vault-vars: &vault-vars
+        name: download vault env vars
+        image: craftech/ci-tools:iac-tools-0e8ada22fe2ad7511c65e394b4f5f92e4915b6c9
+        script:
+          - vault login -method=userpass username=${VAULT_USERNAME} password=${VAULT_PASSWORD}
+          - vault kv get -format=json ${VAULT_PATH} > env.json
+        artifacts:
+          - env.json
     - deploy-step: &serverless-deploy
         name: lambda deployment
         caches:
@@ -18,6 +26,13 @@ definitions:
 
 pipelines:
   branches:
+    test-vault:
+      - step:
+          <<: *vault-vars
+          deployment: staging
+      - step:
+          <<: *serverless-deploy
+          deployment: staging
     staging:
       - step:
           <<: *serverless-deploy
