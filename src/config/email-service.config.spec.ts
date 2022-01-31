@@ -27,13 +27,13 @@ describe('EmailServiceConfig', () => {
   });
 
   test('should return success config of aws', () => {
-    expect(config.awsConfig.region).toBe(emailServiceEnvMock.AWS_REGION);
+    expect(config.awsConfig.region).toBe(emailServiceEnvMock.AWS_SES_REGION);
     expect(config.awsConfig.senders).toMatchObject(
-      JSON.parse(emailServiceEnvMock.AWS_EMAIL_SENDER_OBJECT),
+      JSON.parse(emailServiceEnvMock.AWS_EMAIL_SENDER_LIST),
     );
     expect(config.awsConfig.secretAccessKey).toBe(
-      emailServiceEnvMock.AWS_SECRET_ACCESS_KEY,
+      emailServiceEnvMock.AWS_SES_SECRET_ACCESS_KEY,
     );
-    expect(config.awsConfig.accessKey).toBe(emailServiceEnvMock.AWS_ACCESS_KEY);
+    expect(config.awsConfig.accessKey).toBe(emailServiceEnvMock.AWS_SES_ACCESS_KEY);
   });
 });

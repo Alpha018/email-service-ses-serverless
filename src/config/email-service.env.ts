@@ -8,21 +8,21 @@ export class EmailServiceEnv {
   @IsString()
   @IsOptional()
   // @IsNotEmpty() uncomment this when launch in dev
-  AWS_ACCESS_KEY: string;
+  AWS_SES_ACCESS_KEY: string;
 
   @IsString()
   @IsOptional()
   // @IsNotEmpty() uncomment this when launch in dev
-  AWS_SECRET_ACCESS_KEY: string;
+  AWS_SES_SECRET_ACCESS_KEY: string;
 
   @IsString()
   @IsOptional()
   // @IsNotEmpty() uncomment this when launch in dev
-  AWS_REGION: string;
+  AWS_SES_REGION: string;
 
   @IsString()
   @IsOptional()
   @IsJSON()
   // @IsNotEmpty() uncomment this when launch in dev
-  AWS_EMAIL_SENDER_OBJECT: string;
+  AWS_EMAIL_SENDER_LIST: string;
 }

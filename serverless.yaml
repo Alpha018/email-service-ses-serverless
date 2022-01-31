@@ -10,6 +10,7 @@ plugins:
 provider:
   name: aws
   runtime: nodejs14.x
+  environment: ${file(env.json)}
 
 functions:
   main: # The name of the lambda function
