@@ -34,6 +34,8 @@ describe('EmailServiceConfig', () => {
     expect(config.awsConfig.secretAccessKey).toBe(
       emailServiceEnvMock.AWS_SES_SECRET_ACCESS_KEY,
     );
-    expect(config.awsConfig.accessKey).toBe(emailServiceEnvMock.AWS_SES_ACCESS_KEY);
+    expect(config.awsConfig.accessKey).toBe(
+      emailServiceEnvMock.AWS_SES_ACCESS_KEY,
+    );
   });
 });

@@ -4,6 +4,12 @@ import { Controller, Get } from '@nestjs/common';
 export class AppController {
   @Get()
   async check(): Promise<any> {
-    return 'hello';
+    return {
+      status: 'ok',
+      'node-version': process.version,
+      memory: process.memoryUsage(),
+      pid: process.pid,
+      uptime: process.uptime(),
+    };
   }
 }

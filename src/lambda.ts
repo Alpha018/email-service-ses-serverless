@@ -9,6 +9,7 @@ import { AppModule } from './app.module';
 import { WinstonModule } from 'nest-winston';
 import { loggerOptions } from './utils/logger';
 import { ValidationPipe } from '@nestjs/common';
+import { HeaderInterceptor } from './utils/header.interceptor';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const express = require('express');
@@ -32,6 +33,7 @@ async function bootstrapServer(): Promise<Server> {
       },
     );
     nestApp.useGlobalPipes(new ValidationPipe({ transform: true }));
+    nestApp.useGlobalInterceptors(new HeaderInterceptor());
     nestApp.use(eventContext());
     await nestApp.init();
     cachedServer = createServer(expressApp, undefined, binaryMimeTypes);
