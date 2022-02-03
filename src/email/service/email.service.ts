@@ -59,9 +59,9 @@ export class EmailService {
         emailData,
         senderEmail,
       );
-      const result = await this.ses.sendEmail(emailSesData);
+      const result = await this.ses.sendEmail(emailSesData).promise();
       return {
-        result,
+        messageId: result.MessageId,
         status: 'ok',
       };
     } catch (e) {

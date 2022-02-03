@@ -7,6 +7,16 @@ import { EmailServiceConfig } from '../../config/email-service.config';
 import { emailServiceEnvMock } from '../../__mocks__/email-service.mock';
 import { EmailConfigModule } from '../../config/email-config.module';
 
+jest.mock('aws-sdk/clients/ses', () => {
+  const mSES = {
+    sendEmail: jest.fn().mockReturnThis(),
+    promise: jest.fn().mockImplementation(() => {
+      return { MessageId: 1 };
+    }),
+  };
+  return jest.fn(() => mSES);
+});
+
 process.env = Object.assign(process.env, {
   ...emailServiceEnvMock,
 });
@@ -49,9 +59,6 @@ describe('Email Service', () => {
           data: 'mock',
         };
       });
-      const spy = jest
-        .spyOn(emailService.ses, 'sendEmail')
-        .mockReturnValue(null);
 
       const result = await emailService.sendEmail(
         TemplateName.TEST,
@@ -65,7 +72,6 @@ describe('Email Service', () => {
         'default',
       );
 
-      expect(spy).toHaveBeenCalledTimes(1);
       expect(result).toBeDefined();
       expect(result.status).toBe('ok');
     });
