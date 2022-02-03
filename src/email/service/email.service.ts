@@ -59,8 +59,11 @@ export class EmailService {
         emailData,
         senderEmail,
       );
-      await this.ses.sendEmail(emailSesData);
-      return { status: 'ok' };
+      const result = await this.ses.sendEmail(emailSesData);
+      return {
+        result,
+        status: 'ok',
+      };
     } catch (e) {
       this.logger.error(e, { ...meta });
       throw new InternalServerErrorException('Error in send email', e.message);
